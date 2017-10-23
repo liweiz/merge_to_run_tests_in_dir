@@ -1,16 +1,3 @@
-#!/bin/bash
-
-# Change working dir to selected folder.
-cd "$1"
-
-# unix.stackexchange.com/a/184729/246538
-
-# This is for running in Mac Automator, which passes $1 as sellected folder's
-# path by using 'Get Specified Finder Items'.
-export folder_path="$1"
-
-cat << EOF > script_to_merge_files_and_run_tests.py
-#!/usr/bin/python
 """
 Merge same ending name files under same dir into one.
 """
@@ -122,9 +109,3 @@ def identify_src_ext(src_path):
             break
 
 identify_src_ext(os.path.join(passed_in_folder_path, 'src'))
-
-EOF
-
-chmod 755 script_to_merge_files_and_run_tests.py
-
-./script_to_merge_files_and_run_tests.py
