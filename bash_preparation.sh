@@ -75,13 +75,17 @@ def merge_files_under(under_path, target_ext, save_under_path, file_name, merge_
     path_out = os.path.join(save_under_path, file_name)
     merge_files_to_one(paths_in, path_out)
 
-# Assuming the folder to run test having two folders: src for source code and
-# tests for tests code. The merged file stored in ./tests/runnable folder.
+"""
+Assuming the folder to run test having two folders: src for source code and
+tests for tests code. The merged file stored in
+sub_path_of_exported_test_file (such as ./tests/runnable, inputed as
+'tests/runnable') folder.
+"""
 
 passed_in_folder_path = "$folder_path"
 
-def prepare_for_testing(ext_name, test_file_name_mark=''):
-    dir_path_out = os.path.join(passed_in_folder_path, 'tests/runnable')
+def prepare_for_testing(ext_name, sub_path_of_exported_test_file='', test_file_name_mark=''):
+    dir_path_out = os.path.join(passed_in_folder_path, sub_path_of_exported_test_file)
     if not os.path.exists(dir_path_out):
         os.makedirs(dir_path_out)
     src_paths = source_paths_to_merge(os.path.join(passed_in_folder_path, 'src'), ext_name)
@@ -89,16 +93,17 @@ def prepare_for_testing(ext_name, test_file_name_mark=''):
     file_name = ''.join(('to_run', test_file_name_mark, ext_name))
     merge_files_to_one(src_paths + tests_paths, os.path.join(dir_path_out, file_name))
 
-def output_to_stdout(test_command):
-    sys.stdout.write(passed_in_folder_path)
+def output_to_stdout(test_command, sub_path_of_exported_test_file=''):
+    sys.stdout.write(os.path.join(passed_in_folder_path, sub_path_of_exported_test_file))
     sys.stdout.write('.')
     sys.stdout.write(test_command)
     sys.stdout.flush()
     sys.exit(0)
 
 def run_py_tests():
-    prepare_for_testing('.py', '_test')
-    output_to_stdout('pytest')
+    sub_path_runnable_test_file = 'env/bin/runnable_tests'
+    prepare_for_testing('.py', sub_path_runnable_test_file, '_test')
+    output_to_stdout('pytest', sub_path_runnable_test_file)
 
 def run_js_tests():
     prepare_for_testing('.js')
