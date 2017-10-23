@@ -118,8 +118,9 @@ def identify_src_ext(src_path):
         a_path = os.path.join(src_path, a_name)
         if os.path.isfile(a_path):
             ext = os.path.splitext(a_path)[1]
-            file_ext_supported[ext]()
-            break
+            if ext in file_ext_supported.keys():
+                file_ext_supported[ext]()
+                break
 
 identify_src_ext(os.path.join(passed_in_folder_path, 'src'))
 
