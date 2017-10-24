@@ -88,7 +88,7 @@ def output_to_stdout(test_command, sub_path_of_exported_test_file=''):
     sys.exit(0)
 
 def run_py_tests():
-    sub_path_runnable_test_file = 'env/bin/runnable_tests'
+    sub_path_runnable_test_file = 'runnable_tests'
     prepare_for_testing('.py', sub_path_runnable_test_file, '_test')
     output_to_stdout('pytest', sub_path_runnable_test_file)
 
