@@ -30,7 +30,8 @@ export working_path="$a_dir_path"
 cat << EOF > run_tests_now.sh
 #!/bin/bash
 cd "$working_path"
-$command_text
+source ../env/bin/activate
+python -m $command_text
 
 EOF
 
