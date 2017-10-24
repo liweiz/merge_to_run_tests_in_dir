@@ -1,16 +1,3 @@
-#!/bin/bash
-
-# Change working dir to selected folder.
-cd "$1"
-
-# unix.stackexchange.com/a/184729/246538
-
-# This is for running in Mac Automator, which passes $1 as sellected folder's
-# path by using 'Get Specified Finder Items'.
-export folder_path="$1"
-
-cat << EOF > script_to_merge_files_and_run_tests.py
-#!/usr/bin/python
 """
 Merge same ending name files under same dir into one.
 """
@@ -101,7 +88,7 @@ def output_to_stdout(test_command, sub_path_of_exported_test_file=''):
     sys.exit(0)
 
 def run_py_tests():
-    sub_path_runnable_test_file = 'env/bin/runnable_tests'
+    sub_path_runnable_test_file = 'runnable_tests'
     prepare_for_testing('.py', sub_path_runnable_test_file, '_test')
     output_to_stdout('pytest', sub_path_runnable_test_file)
 
@@ -123,9 +110,3 @@ def identify_src_ext(src_path):
                 break
 
 identify_src_ext(os.path.join(passed_in_folder_path, 'src'))
-
-EOF
-
-chmod 755 script_to_merge_files_and_run_tests.py
-
-./script_to_merge_files_and_run_tests.py
