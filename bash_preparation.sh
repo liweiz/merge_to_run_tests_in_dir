@@ -106,7 +106,9 @@ def run_py_tests():
     output_to_stdout('pytest', sub_path_runnable_test_file)
 
 def run_js_tests():
-    prepare_for_testing('.js')
+    sub_path_runnable_test_file = 'runnable_tests'
+    prepare_for_testing('.js', sub_path_runnable_test_file)
+    output_to_stdout('ava', sub_path_runnable_test_file)
 
 file_ext_supported = {
     '.js': run_js_tests,
